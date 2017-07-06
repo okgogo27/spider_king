@@ -7,16 +7,18 @@
 import scrapy
 from scrapy.pipelines.images import ImagesPipeline
 from scrapy.exceptions import DropItem
+import traceback
 import time
 import os
 import csv
+import sqlite3
 
-class SpiderKingPipeline(object):
+class ToutiaoPipeline(object):
 
     year = time.strftime('%Y%m', time.localtime(time.time()))
     day = time.strftime('%d', time.localtime(time.time()))
 
-    window_path = 'D:\\test\\local\\'
+    window_path = 'D:\\test\\local\\toutiao\\'
 
     fieldnames = ['title', 'text', 'keyword', 'page_url']
 
@@ -26,9 +28,21 @@ class SpiderKingPipeline(object):
             with open(path,'w',newline='') as csvfile:
                 writer = csv.DictWriter(csvfile,fieldnames=self.fieldnames)
                 writer.writeheader()
-        with open(path,'a',newline='') as csvfile:
-            writer = csv.writer(csvfile)
-            writer.writerow([item['title'],item['text'],item['keyword'],item['page_url']])
+        conn = sqlite3.connect(self.window_path + 'toutiao.db')
+        try:
+            with open(path, 'a', newline='') as csvfile:
+                writer = csv.writer(csvfile)
+                writer.writerow([item['title'], item['text'], item['keyword'], item['page_url']])
+            conn.execute("INSERT INTO toutiao (URL) \
+            VALUES ('"+item['page_url']+"')")
+            conn.commit()
+            conn.close()
+        except:
+            conn.execute("INSERT INTO toutiao (URL) \
+                        VALUES ('" + item['page_url'] + "')")
+            conn.commit()
+            conn.close()
+            raise DropItem(traceback.format_exc())
 
         return item
 

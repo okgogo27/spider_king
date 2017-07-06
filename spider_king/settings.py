@@ -23,7 +23,7 @@ ROBOTSTXT_OBEY = False
 
 IMAGES_STORE = 'D:\\test'
 ITEM_PIPELINES = {
-    'spider_king.pipelines.SpiderKingPipeline':1,
+    'spider_king.pipelines.ToutiaoPipeline':1,
     'spider_king.pipelines.ImageDownLoadPipeline':2
 }
 
