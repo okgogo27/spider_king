@@ -9,9 +9,27 @@ from scrapy.pipelines.images import ImagesPipeline
 from scrapy.exceptions import DropItem
 import time
 import os
+import csv
 
 class SpiderKingPipeline(object):
+
+    year = time.strftime('%Y%m', time.localtime(time.time()))
+    day = time.strftime('%d', time.localtime(time.time()))
+
+    window_path = 'D:\\test\\local\\'
+
+    fieldnames = ['title', 'text', 'keyword', 'page_url']
+
     def process_item(self, item, spider):
+        path = self.window_path + self.year + self.day+'toutiao.csv'
+        if not os.path.exists(path):
+            with open(path,'w',newline='') as csvfile:
+                writer = csv.DictWriter(csvfile,fieldnames=self.fieldnames)
+                writer.writeheader()
+        with open(path,'a',newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow([item['title'],item['text'],item['keyword'],item['page_url']])
+
         return item
 
 class ImageDownLoadPipeline(ImagesPipeline):

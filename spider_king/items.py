@@ -15,4 +15,3 @@ class SpiderKingItem(scrapy.Item):
     page_url = scrapy.Field()
     keyword = scrapy.Field()
     img_url = scrapy.Field()
-    image_paths = scrapy.Field()
