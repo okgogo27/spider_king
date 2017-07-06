@@ -46,7 +46,7 @@ class QuotesSpider(scrapy.Spider):
         imgs = soup.find_all('img')
         img_list = []
         for img in imgs:
-            if 's3.pstatp.com' in img.get('src'):
+            if 's3.pstatp.com' in img.get('src') or ('http' not in img.get('src')):
                 continue
             img_list.append(img.get('src'))
         item['img_url'] = img_list
