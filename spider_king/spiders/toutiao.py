@@ -14,7 +14,7 @@ class QuotesSpider(scrapy.Spider):
 
     def start_requests(self):
         urls = [
-            'http://www.toutiao.com/search_content/?offset=3&format=json&keyword=%E9%94%80%E5%94%AE&autoload=true&count=20&cur_tab=1'
+            'http://www.toutiao.com/search_content/?offset=20&format=json&keyword=%E9%94%80%E5%94%AE&autoload=true&count=20&cur_tab=1'
         ]
         for url in urls:
             yield scrapy.Request(url=url, callback=self.parse)
@@ -39,8 +39,7 @@ class QuotesSpider(scrapy.Spider):
         soup = BeautifulSoup(response.body,'lxml')
         item = SpiderKingItem()
         title = soup.find('h1', attrs={'class': 'article-title'})
-        if title:
-            item['title'] = title.text
+        item['title'] = title.text if title else ''
         item['text'] = soup.find('div',attrs={'class':'article-content'})
         item['page_url'] = response.url
 
