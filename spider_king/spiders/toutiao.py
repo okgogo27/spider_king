@@ -15,8 +15,15 @@ class QuotesSpider(scrapy.Spider):
     def start_requests(self):
         urls = [
             'http://www.toutiao.com/search_content/?offset=20&format=json&keyword=%E9%94%80%E5%94%AE&autoload=true&count=20&cur_tab=1',
-            'http://www.toutiao.com/search_content/?offset=40&format=json&keyword=%E9%94%80%E5%94%AE&autoload=true&count=20&cur_tab=1',
-            'http://www.toutiao.com/search_content/?offset=60&format=json&keyword=%E9%94%80%E5%94%AE&autoload=true&count=20&cur_tab=1'
+            'http://www.toutiao.com/search_content/?offset=20&format=json&keyword=%E6%89%BE%E5%AE%A2%E6%88%B7&autoload=true&count=20&cur_tab=1',
+            'http://www.toutiao.com/search_content/?offset=20&format=json&keyword=%E9%94%80%E5%94%AE%E6%8A%80%E5%B7%A7&autoload=true&count=20&cur_tab=1',
+            'http://www.toutiao.com/search_content/?offset=20&format=json&keyword=%E5%AE%A2%E6%88%B7%E8%B7%9F%E8%BF%9B&autoload=true&count=20&cur_tab=1',
+            'http://www.toutiao.com/search_content/?offset=20&format=json&keyword=%E5%AE%A2%E6%88%B7%E8%81%94%E7%B3%BB&autoload=true&count=20&cur_tab=1',
+            'http://www.toutiao.com/search_content/?offset=20&format=json&keyword=%E5%AE%A2%E6%88%B7%E6%8B%9C%E8%AE%BF&autoload=true&count=20&cur_tab=1',
+            'http://www.toutiao.com/search_content/?offset=20&format=json&keyword=%E5%AE%A2%E6%88%B7%E7%AE%A1%E7%90%86&autoload=true&count=20&cur_tab=1',
+            'http://www.toutiao.com/search_content/?offset=20&format=json&keyword=%E5%AE%A2%E6%88%B7%E9%9C%80%E6%B1%82&autoload=true&count=20&cur_tab=1',
+            'http://www.toutiao.com/search_content/?offset=20&format=json&keyword=%E9%94%80%E5%94%AE%E5%BF%83%E7%90%86%E5%AD%A6&autoload=true&count=20&cur_tab=1',
+            'http://www.toutiao.com/search_content/?offset=20&format=json&keyword=%E9%94%80%E5%94%AE%E5%91%98&autoload=true&count=20&cur_tab=1'
         ]
         for url in urls:
             yield scrapy.Request(url=url, callback=self.parse)
